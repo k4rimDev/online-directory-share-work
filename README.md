@@ -14,7 +14,7 @@ envname\scripts\activate
 * Message other developers
 * Rate others work
 * Search other developers
-# Tech Stack
+# Stack
 * Django
 * Postgres
 * Django REST Framework
