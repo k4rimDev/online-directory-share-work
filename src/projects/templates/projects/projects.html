@@ -3,4 +3,67 @@
 
     <h1>kerim is projects page </h1>
 
+    <table style="border-collapse: collapse; width: 90%;">
+        <thead>
+            <td>
+                PROJECT
+            </td>
+
+            <td>
+                POSITIVE VOTES 
+            </td>
+
+            <td>
+                VOTES
+            </td>
+
+            <td>
+                CREATED TIME  
+            </td>
+
+            <td>
+                UPDATE PROJECT  
+            </td>
+
+            <td>
+                DELETE PROJECT  
+            </td>
+
+            <td>
+                LINK  
+            </td>
+        </thead>
+        {% for project in projects %}
+            <tr>
+                <td>
+                    {{ project.title }}
+                </td>
+
+                <td>
+                    {{ project.vote_total }}
+                </td>
+
+                <td>
+                    {{ project.vote_ratio }}%
+                </td>
+
+                <td>
+                    {{ project.created }}
+                </td>
+
+                <td>
+                    <a href="{% url 'update-project' project.id %}">Edit</a>
+                </td>
+
+                <td>
+                    <a href="{% url 'delete-project' project.id %}">Delete</a>
+                </td>
+
+                <td>
+                    <a href="{% url 'project' project.id %}">View</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
 {% endblock content %}

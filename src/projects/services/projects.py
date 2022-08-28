@@ -5,4 +5,4 @@ def get_projects() -> QuerySet:
     return Project.objects.all()
 
 def get_project(id: int) -> QuerySet:
-    return Project.objects.get(id = id)
+    return Project.objects.filter(id = id)[0]
