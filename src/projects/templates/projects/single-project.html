@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <h1>kerim is single projects page </h1>
+    <h1>{{ project.title }}</h1>
 
+    <hr>
     {% for tag in tags %}
-        <p> {{ tag }} </p>
+        <span class="tag-container"> {{ tag }} </span>
     {% endfor %}
+    <hr>
+
+    <p>{{ project.description }}</p>
 
 {% endblock content %}
