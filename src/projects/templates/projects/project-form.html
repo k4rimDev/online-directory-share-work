@@ -1,18 +1,26 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <h1>
-        Project Form
-    </h1>
+    <!-- Main Section -->
+    <main class="formPage my-xl">
+        <div class="content-box">
+            <div class="formWrapper">
+                <a class="backButton" href="#"><i class="im im-angle-left"></i></a>
+                <br>
 
-    <form method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            {{ field.label }}
-            {{ field  }}
-            {% comment %} {{ field|crispy }} {% endcomment %}
-        {% endfor %}
-        {% comment %} {{ form|crispy }} {% endcomment %}
-        <input type="submit" value="Submit">
-    </form>
+                <form class="form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="form__field">
+                        <label for="formInput#text">{{ field.label }}: </label>
+                        {% comment %} <input class="input input--text" id="formInput#text" type="text" name="text"
+                            placeholder="Enter text" /> {% endcomment %}
+                        {{ field }}
+                    </div>
+                    {% endfor %}
+                    <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+    </main>
 {% endblock content %}

@@ -25,7 +25,7 @@ def project(request: HttpRequest, pk) -> HttpResponse:
 def create_project(request: HttpRequest) -> HttpResponse:
     form = ProjectForm()
     if request.method == "POST":
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid( ):
             form.save()
             return redirect("projects")
@@ -37,11 +37,11 @@ def create_project(request: HttpRequest) -> HttpResponse:
     return render(request, 'projects/project-form.html', context=context)
 
 
-def update_project(request: HttpRequest, pk: str) -> HttpResponse:
+def update_project(request: HttpRequest, pk: str) -> HttpResponse: 
     project = get_project(pk)
     form = ProjectForm(instance=project)
     if request.method == "POST":
-        form = ProjectForm(request.POST, instance=project)
+        form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid( ):
             form.save()
             return redirect("projects")
