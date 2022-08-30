@@ -12,6 +12,7 @@ class Profile(models.Model):
     name = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(max_length=250, null=True, blank=True)
     username = models.CharField(max_length=200, null=True, blank=True)
+    location = models.CharField(max_length=200, null=True, blank=True)
     short_info = models.CharField(max_length=200, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     profile_image = models.ImageField(null=True, blank=True, upload_to="profiles/", default="profiles/user-default.png")
@@ -27,3 +28,14 @@ class Profile(models.Model):
 
     def __str__(self) -> str:
         return str(self.user.username)
+
+
+class Skill(models.Model):
+    owner = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False, unique=True)
+
+    def __str__(self) -> str:
+        return self.name

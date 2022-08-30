@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+SECRET_KEY = "django-insecure-z$yl#p3+p@mr*f8yd&h7btgd287a)_ph3l@a1ygz7a4#do-#hc"
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8m#%ww9$u@*lb8d8wgyn#%k$*!$4-2yfi$t2$^4fv#6ggu=j61'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -93,6 +94,18 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': str(os.getenv('POSTGRES_DB')),
+#         'USER': str(os.getenv('POSTGRES_USER')),
+#         'PASSWORD': str(os.getenv('POSTGRES_PASSWORD')),
+#         'HOST': str(os.getenv('POSTGRES_HOST')),
+#         'PORT': str(os.getenv('POSTGRES_PORT')),
+#     }
+# }
 
 
 # Password validation
