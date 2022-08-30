@@ -35,7 +35,8 @@ ALLOWED_HOSTS = [
 
 # Application definition
 LOCAL_APPS = [
-    'projects.apps.ProjectsConfig'
+    'projects.apps.ProjectsConfig',
+    'users.apps.UsersConfig',
 ]
 
 INSTALLED_APPS = [
