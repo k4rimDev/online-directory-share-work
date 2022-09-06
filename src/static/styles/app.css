@@ -45,6 +45,16 @@ img {
   height: 3.8rem;
 }
 
+.footer-container {
+  width: 100%;
+}
+.footer-container a{
+  display: block;
+  width: 100px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
 .header__nav > ul {
   display: inline-flex;
   align-items: center;

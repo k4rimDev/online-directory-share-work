@@ -21,6 +21,15 @@ def get_other_skills_profile(pk: str) -> QuerySet:
     profile = get_profile(pk)
     return profile.skill_set.filter(description="")
 
+# Get other skills of profile
+def get_all_skills_profile(pk: str) -> QuerySet:
+    profile = get_profile(pk)
+    return profile.skill_set.all()
+
+# Get skill by pk
+def get_skill(pk: str) -> QuerySet:
+    return Skill.objects.filter(pk=pk).first()
+
 # Get user projects
 def get_user_projects(pk: str) -> QuerySet:
     profile = get_profile(pk)

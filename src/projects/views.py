@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
+from django.contrib.auth.decorators import login_required
 
 from .services.projects import get_projects, get_project
 from .forms import ProjectForm
@@ -22,13 +23,17 @@ def project(request: HttpRequest, pk) -> HttpResponse:
     return render(request, 'projects/single-project.html', context=context)
 
 
+@login_required(login_url="login")
 def create_project(request: HttpRequest) -> HttpResponse:
+    profile = request.user.profile
     form = ProjectForm()
     if request.method == "POST":
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid( ):
-            form.save()
-            return redirect("projects")
+            project = form.save(commit=False)
+            project.owner = profile
+            project.save()
+            return redirect("account")
     
     context = {
         'form': form,
@@ -37,14 +42,16 @@ def create_project(request: HttpRequest) -> HttpResponse:
     return render(request, 'projects/project-form.html', context=context)
 
 
+@login_required(login_url="login")
 def update_project(request: HttpRequest, pk: str) -> HttpResponse: 
-    project = get_project(pk)
+    profile = request.user.profile
+    project = profile.project_set.get(id = pk)
     form = ProjectForm(instance=project)
     if request.method == "POST":
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid( ):
             form.save()
-            return redirect("projects")
+            return redirect("account")
     
     context = {
         'form': form,
@@ -53,14 +60,18 @@ def update_project(request: HttpRequest, pk: str) -> HttpResponse:
     return render(request, 'projects/project-form.html', context=context)
 
 
+@login_required(login_url="login") 
 def delete_project(request: HttpRequest, pk: str) -> HttpResponse:
-    project = get_project(pk)
+    profile = request.user.profile
+    project = profile.project_set.get(id = pk)
 
-    if request.method == 'POST':
+    if request.method  == 'POST':
         project.delete()
-        return redirect("projects")
+        return redirect("account")
 
     context = {
-        "project": project
+        "object": project,
+        "back_page": "projects",
     }
-    return render(request, 'projects/delete_project.html', context=context)
+    return render(request, 'delete_template.html', context=context)
+

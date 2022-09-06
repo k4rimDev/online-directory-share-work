@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
 {% block content %}
+
     <!-- Main Section -->
     <main class="formPage my-xl">
         <div class="content-box">
@@ -8,19 +8,23 @@
                 <a class="backButton" href="{% url 'account' %}"><i class="im im-angle-left"></i></a>
                 <br>
 
-                <form class="form" method="post" enctype="multipart/form-data">
+                <h1 class="text-center">{{ page }}</h1>
+
+                <form class="form" method="POST">
+
                     {% csrf_token %}
-                    {% for field in form %}
+                    {% for field in form.visible_fields %}
+                    <!-- Input:Text -->
                     <div class="form__field">
                         <label for="formInput#text">{{ field.label }}: </label>
-                        {% comment %} <input class="input input--text" id="formInput#text" type="text" name="text"
-                            placeholder="Enter text" /> {% endcomment %}
                         {{ field }}
                     </div>
                     {% endfor %}
+
                     <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
                 </form>
             </div>
         </div>
-    </main>
-{% endblock content %}
+    </main> 
+
+{% endblock content %} 
