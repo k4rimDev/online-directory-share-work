@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from projects.services.projects import get_project
-from projects.forms import ProjectForm
+from projects.forms import ProjectForm, ReviewForm
 from projects.utils import search_project, paginate_projects
 
 
@@ -28,9 +29,25 @@ def projects(request: HttpRequest) -> HttpResponse:
 def project(request: HttpRequest, pk) -> HttpResponse:
     project = get_project(pk)
     tags = project.tags.all()
+    form = ReviewForm()
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.project = project
+            review.owner = request.user.profile
+            review.save()
+            
+            # Update project votecount
+            project.get_vote_count
+
+            messages.success(request, "Your review was successfully submitted.")
+
+            return redirect('project', pk = project.id)
     context = {
         'project': project,
         'tags': tags,
+        'form': form,
     }
     return render(request, 'projects/single-project.html', context=context)
 
