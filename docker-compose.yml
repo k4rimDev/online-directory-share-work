@@ -24,13 +24,13 @@ services :
     env_file:
       - .env
     ports:
-      - "5433:5433"
+      - "5432:5432"
   admin:
     image: adminer
     restart: always
     depends_on:
       - db
     ports:
-      - 8081:8081
+      - 8080:8080
     
 
