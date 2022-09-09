@@ -1,13 +1,13 @@
-from webbrowser import get
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from users.forms import CustomUserRegisterForm, ProfileForm, SkillForm
 from django.contrib import messages
 from django.contrib.auth.models import User
 
-from users.services.users import get_all_profiles, get_profile, get_top_skills_profile, get_other_skills_profile, get_user_projects, get_all_skills_profile, get_skill
+from users.services.users import get_all_profiles, get_profile, get_top_skills_profile, get_other_skills_profile, get_user_projects, get_all_skills_profile, get_skill, get_filtered_profiles
+from users.forms import CustomUserRegisterForm, ProfileForm, SkillForm
+from users.utils import search_profiles
 
 
 def register_user(request: HttpRequest) -> HttpResponse:
@@ -64,8 +64,11 @@ def logout_user(request: HttpRequest) -> HttpResponse:
     return redirect("login")
 
 def profiles(request: HttpRequest) -> HttpResponse:
+    search_query, profiles = search_profiles(request)
+
     context = { 
-        "profiles" : get_all_profiles(),
+        "profiles" : profiles,
+        "search_query" : search_query,
     }
     return render(request, "users/profiles.html", context=context)
 
@@ -78,7 +81,7 @@ def user_profile(request: HttpRequest, pk) -> HttpResponse:
     }
 
     return render(request, "users/user-profile.html", context=context)
-
+  
 @login_required(login_url="login")
 def user_accout(request: HttpRequest) -> HttpResponse:
     profile = request.user.profile

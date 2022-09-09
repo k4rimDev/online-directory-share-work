@@ -1,11 +1,19 @@
-import profile
-from pydoc import describe
+from django.db.models import QuerySet, Q
+
 from users.models import Profile, Skill
-from django.db.models import QuerySet
 
 # Get all profiles
 def get_all_profiles() -> QuerySet:
     return Profile.objects.all()
+
+# Get filtered profiles
+def get_filtered_profiles(search_query: str) -> QuerySet:
+    skills = Skill.objects.filter(name__icontains=search_query)
+    return Profile.objects.distinct().filter(
+        Q(name__icontains = search_query) | 
+        Q(short_info__icontains = search_query) | 
+        Q(skill__in = skills)
+        )
 
 # Get profile by uuid
 def get_profile(pk: str) -> QuerySet:
