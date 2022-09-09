@@ -2,14 +2,17 @@ from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.decorators import login_required
 
-from .services.projects import get_projects, get_project
-from .forms import ProjectForm
+from projects.services.projects import get_project
+from projects.forms import ProjectForm
+from projects.utils import search_project
 
 
 def projects(request: HttpRequest) -> HttpResponse:
-    projects = get_projects()
+    search_query, projects = search_project(request)
+    print('sdfsdfs', len(projects))
     context = {
-        'projects': projects
+        'projects': projects,
+        "search_query": search_query,
     }
     return render(request, 'projects/projects.html', context=context)
 
