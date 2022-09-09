@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 
 from users.services.users import get_all_profiles, get_profile, get_top_skills_profile, get_other_skills_profile, get_user_projects, get_all_skills_profile, get_skill, get_filtered_profiles
 from users.forms import CustomUserRegisterForm, ProfileForm, SkillForm
-from users.utils import search_profiles
+from users.utils import search_profiles, paginate_profiles
 
 
 def register_user(request: HttpRequest) -> HttpResponse:
@@ -65,10 +65,13 @@ def logout_user(request: HttpRequest) -> HttpResponse:
 
 def profiles(request: HttpRequest) -> HttpResponse:
     search_query, profiles = search_profiles(request)
+    results = 3
+    custom_range, profiles = paginate_profiles(request, profiles, results)
 
     context = { 
         "profiles" : profiles,
         "search_query" : search_query,
+        "custom_range" : custom_range,
     }
     return render(request, "users/profiles.html", context=context)
 

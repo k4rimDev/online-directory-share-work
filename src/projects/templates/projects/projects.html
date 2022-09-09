@@ -33,7 +33,7 @@
                 <img class="project__thumbnail" src="{{ project.featured_image.url }}" alt="project thumbnail" />
                 <div class="card__body">
                   <h3 class="project__title">{{ project.title }}</h3>
-                  <p><a class="project__author" href="{% url 'user-profile' project.owner.id %}">By {{ project.owner.name }}</a></p>
+                  <p><a class="project__author" href="{% url 'user-profile' project.owner.id %}">By {{ project.owner.name  }}</a></p>
                   <p class="project--rating">
                     <span style="font-weight: bold;">{{ project.vote_ratio }}%</span> Positive
                     Feedback ({{ project.vote_total }} Vote{{ project.vote_total|pluralize:"s" }})
@@ -54,22 +54,8 @@
       </div>
     </section>
 
-    <div class="pagination">
-      <ul class="container">
-        <li><a href="#" class="btn btn--disabled">&#10094; Prev</a></li>
-        <li><a href="#" class="btn btn--sub">01</a></li>
-        <li><a href="#" class="btn">02</a></li>
-        <li><a href="#" class="btn">03</a></li>
-        <li><a href="#" class="btn">04</a></li>
-        <li><a href="#" class="btn">05</a></li>
-        <li><a href="#" class="btn">06</a></li>
-        <li><a href="#" class="btn">07</a></li>
-        <li><a href="#" class="btn">08</a></li>
-        <li><a href="#" class="btn">09</a></li>
-        <li><a href="#" class="btn">10</a></li>
-        <li><a href="#" class="btn">Next &#10095;</a></li>
-      </ul>
-    </div>
+    {% include '_pagination.html' with queryset=projects custom_range=custom_range %}
+
   </main>
 
-{% endblock content %}
+{% endblock content %} 
