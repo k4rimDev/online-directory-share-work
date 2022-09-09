@@ -1,6 +1,3 @@
-from email.policy import default
-from pyexpat import model
-from statistics import mode
 from django.db import models
 # from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
@@ -39,3 +36,22 @@ class Skill(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+
+class Message(models.Model):
+    sender = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL)
+    recipient = models.ForeignKey(Profile, null=True, blank=True, on_delete=models.SET_NULL, related_name="messages")
+    name = models.CharField(max_length=200, null=True, blank=True)
+    email = models.EmailField(max_length=200, null=True, blank=True)
+    subject = models.CharField(max_length=200, null=True, blank=True)
+    body = models.TextField(null=True, blank=True)
+    is_read = models.BooleanField(default=False, null=True, blank=True)
+
+    created = models.DateTimeField(auto_now_add=True)
+    id = models.UUIDField(default=uuid.uuid4, unique=True,primary_key=True, editable=False)
+
+    def __str__(self) -> str:
+        return self.subject
+
+    class Meta:
+        ordering = ["is_read", "-created"]

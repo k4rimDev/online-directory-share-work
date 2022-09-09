@@ -1,6 +1,8 @@
 from django.db.models import QuerySet, Q
+from django.http import HttpRequest
 
-from users.models import Profile, Skill
+from users.models import Profile, Skill, Message
+
 
 # Get all profiles
 def get_all_profiles() -> QuerySet:
@@ -42,3 +44,13 @@ def get_skill(pk: str) -> QuerySet:
 def get_user_projects(pk: str) -> QuerySet:
     profile = get_profile(pk)
     return profile.project_set.all()
+
+# Get all messages
+def get_all_messages(profile: Profile) -> QuerySet:
+    return profile.messages.all()
+
+# Get message by id
+def get_message(request: HttpRequest, pk: str) -> QuerySet:
+    profile = request.user.profile
+    return profile.messages.get(id=pk)
+
