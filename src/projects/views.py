@@ -4,15 +4,24 @@ from django.contrib.auth.decorators import login_required
 
 from projects.services.projects import get_project
 from projects.forms import ProjectForm
-from projects.utils import search_project
+from projects.utils import search_project, paginate_projects
 
 
 def projects(request: HttpRequest) -> HttpResponse:
     search_query, projects = search_project(request)
-    print('sdfsdfs', len(projects))
+
+    """ 
+    First version of handelling paginator
+    """
+    # page = request.GET.get('page', 1)
+    results = 3 
+
+    custom_range, projects = paginate_projects(request, projects, results)
     context = {
-        'projects': projects,
-        "search_query": search_query,
+        'projects': projects, 
+        'search_query': search_query, 
+        # 'paginator': paginator, 
+        'custom_range': custom_range,
     }
     return render(request, 'projects/projects.html', context=context)
 

@@ -61,7 +61,7 @@
         </div>
     </section>
 
-    {% comment %} {% include 'pagination.html' with queryset=profiles custom_range=custom_range %} {% endcomment %}
+    {% include '_pagination.html' with queryset=profiles custom_range=custom_range %}
 </main>
 
 {% endblock content %}
