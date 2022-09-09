@@ -14,7 +14,7 @@ def projects(request: HttpRequest) -> HttpResponse:
     First version of handelling paginator
     """
     # page = request.GET.get('page', 1)
-    results = 3 
+    results = 6
 
     custom_range, projects = paginate_projects(request, projects, results)
     context = {

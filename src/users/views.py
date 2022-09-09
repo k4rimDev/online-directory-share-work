@@ -65,7 +65,7 @@ def logout_user(request: HttpRequest) -> HttpResponse:
 
 def profiles(request: HttpRequest) -> HttpResponse:
     search_query, profiles = search_profiles(request)
-    results = 3
+    results = 6
     custom_range, profiles = paginate_profiles(request, profiles, results)
 
     context = { 
