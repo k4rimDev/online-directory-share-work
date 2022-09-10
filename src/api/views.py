@@ -6,6 +6,9 @@ def get_routes(request):
         {'GET': '/api/projects' },
         {'POST': '/api/projects' },
 
+        {'POST': '/api/users/token'},
+        {'POST': '/api/users/token/refresh'}
+
     ]
 
     return JsonResponse(routes, safe=False)
