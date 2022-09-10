@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from users.services.users import get_all_profiles, get_profile, get_top_skills_profile, get_other_skills_profile, get_user_projects, get_all_skills_profile, get_skill, get_filtered_profiles, get_all_messages, get_message
 from users.forms import CustomUserRegisterForm, ProfileForm, SkillForm, MessageForm
 from users.utils import search_profiles, paginate_profiles
-
+import os
 
 def register_user(request: HttpRequest) -> HttpResponse:
     page = "SignUp"
