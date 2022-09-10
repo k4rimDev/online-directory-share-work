@@ -1,8 +1,10 @@
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-
-from .models import Profile
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.conf import settings
+
+from users.models import Profile
 
 @receiver(post_save, sender=User)
 def create_profile(sender, instance: User, created: bool, **kwargs) -> None:
@@ -14,6 +16,18 @@ def create_profile(sender, instance: User, created: bool, **kwargs) -> None:
             name = user.first_name,
             email = user.email
         )
+
+        subject = "Welcome to DevSearch"
+        message = "We are glad you are here"
+ 
+        send_mail(
+            subject,
+            message,
+            settings.EMAIL_HOST_USER,
+            [profile.email],
+            fail_silently=True
+        )
+
 
 @receiver(post_delete, sender=Profile)
 def profile_deleted(sender, instance, **kwargs) -> None:
