@@ -1,6 +1,7 @@
 from django.http import HttpRequest
 
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from api.serializers import ProjectSerializer
 from projects.services.projects import get_projects, get_project
@@ -22,7 +23,9 @@ def get_routes(request):
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def get_projects_api(request: HttpRequest):
+    print(request.user,'User --------------------------------')
     projects = get_projects()
     serializers = ProjectSerializer(projects, many=True)
     return Response(serializers.data, status=200)
