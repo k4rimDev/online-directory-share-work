@@ -32,3 +32,4 @@ tomli==2.0.1
 typing_extensions==4.3.0
 tzdata==2022.1
 whitenoise==6.2.0
+djangorestframework==3.13.1
