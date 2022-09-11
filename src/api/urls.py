@@ -13,4 +13,5 @@ urlpatterns = [
     path('', views.get_routes),
     path('projects/', views.get_projects_api),
     path('projects/<str:pk>/', views.get_project_api),
+    path('projects/<str:pk>/vote/', views.post_project_vote),
 ] 
