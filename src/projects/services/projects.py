@@ -20,3 +20,12 @@ def get_filtered_projects(search_query: str) -> QuerySet:
 # Get one project
 def get_project(id: int) -> QuerySet:
     return Project.objects.filter(id = id)[0]
+
+# Get or create review for api
+def get_or_create_review(pk: str, user: str, project: QuerySet) -> QuerySet:
+    review, created = Review.objects.get_or_create(
+        owner = user,
+        project = project
+    )
+
+    return review, created
