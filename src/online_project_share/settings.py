@@ -40,6 +40,11 @@ LOCAL_APPS = [
     'users.apps.UsersConfig',
 ]
 
+THIRD_APPS = [
+    'rest_framework',
+    'corsheaders',
+]
+
 INSTALLED_APPS = [
     'crispy_forms',
     'django.contrib.admin',
@@ -49,10 +54,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     *LOCAL_APPS,
+    
+    *THIRD_APPS,
 
-    'rest_framework',
 ]
 
+# Rest framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -61,6 +68,7 @@ REST_FRAMEWORK = {
 
 from datetime import timedelta
 
+# JWTAuthentication
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=5),
@@ -98,6 +106,9 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -186,7 +197,19 @@ USE_I18N = True
 
 USE_TZ = True
  
+# Give allow to domains
 
+"""
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+    "http://127.0.0.1:9000",
+    "http://127.0.0.1:5000",
+    "http://127.0.0.1:5000",
+]
+"""
+
+""" OR """
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
