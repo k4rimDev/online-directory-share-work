@@ -1,0 +1,24 @@
+/*
+* Project: Mumble UI
+* Version: v0.1.1
+*/
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400&family=Poppins:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* Mumble UI Styles */
+@import url("./modules/_variables.f2c81fba1cb0.css");
+@import url("./modules/_base.1ca3433bc6c5.css");
+@import url("./modules/_typography.4f613253d4a7.css");
+@import url("./modules/_utilities.ca10cd0ca90c.css");
+@import url("./modules/_animation.19c3c1056dc9.css");
+@import url("./modules/_avatar.1c5a28d51eac.css");
+@import url("./modules/_button.8318628ee20c.css");
+@import url("./modules/_card.a865208b682e.css");
+@import url("./modules/_form.467628fe8cf6.css");
+@import url("./modules/_tag.a38d5ac05994.css");
+@import url("./modules/_author-box.c0806e03eeed.css");
+@import url("./modules/_alert.5d64a4cd6818.css");
+@import url("./modules/_loading.45578eadd8a4.css");
+@import url("./modules/_grid.96a776600a4e.css");
+@import url("./modules/_layout.71bbcd6b0b94.css");
