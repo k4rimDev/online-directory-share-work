@@ -31,8 +31,11 @@ def create_profile(sender, instance: User, created: bool, **kwargs) -> None:
 
 @receiver(post_delete, sender=Profile)
 def profile_deleted(sender, instance, **kwargs) -> None:
-    user = instance.user
-    user.delete()
+    try:
+        user = instance.user
+        user.delete()
+    except:
+        pass
 
 @receiver(post_save, sender=Profile)
 def update_profile(sender: Profile, instance: Profile, created: bool, **kwargs):

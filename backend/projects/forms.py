@@ -7,9 +7,9 @@ class ProjectForm(ModelForm):
     class Meta:
         model = Project
         fields = "__all__"
-        exclude = ["owner", "vote_total", "vote_ratio"]
+        exclude = ["owner", "vote_total", "vote_ratio", "tags"]
         widgets = {
-            'tags': forms.CheckboxSelectMultiple(), 
+            # 'tags': forms.CheckboxSelectMultiple(), 
             'source_link': forms.TextInput(),
             'demo_link': forms.TextInput(),
         }
