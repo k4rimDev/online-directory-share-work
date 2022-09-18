@@ -44,6 +44,8 @@ LOCAL_APPS = [
 THIRD_APPS = [
     'rest_framework',
     'corsheaders',
+    'drf_spectacular',
+    # 'rest_framework_swagger',
 ]
 
 INSTALLED_APPS = [
@@ -64,7 +66,10 @@ INSTALLED_APPS = [
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+
 }
 
 from datetime import timedelta

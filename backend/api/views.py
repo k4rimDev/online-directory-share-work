@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from api.serializers import ProjectSerializer
 from projects.services.projects import get_projects, get_project, get_or_create_review
+from projects.models import Tag
 
 
 @api_view(['GET'])
@@ -38,6 +39,7 @@ def get_project_api(request: HttpRequest, pk):
 
     return Response(serializer.data, status=200)
  
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def post_project_vote(request: HttpRequest, pk):
@@ -52,3 +54,16 @@ def post_project_vote(request: HttpRequest, pk):
     
     serializer = ProjectSerializer(project, many=False)
     return Response(serializer.data) 
+
+@api_view(['DELETE'])
+def delete_tag(request: HttpRequest):
+    pk = request.data['projectId']
+    tag = request.data['tagId']
+
+    project = get_project(pk)
+    tag = Tag.objects.get(id = tag)
+    
+    project.tags.remove(tag)
+
+    return Response("Tag was deleted")
+     
